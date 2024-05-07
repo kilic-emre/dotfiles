@@ -1,0 +1,37 @@
+set shell zsh
+set icons
+set drawbox
+set previewer ~/.config/lf/lf_kitty_preview
+set cleaner ~/.config/lf/lf_kitty_clean
+
+map <enter> cd 
+
+# map i rename
+map i $/usr/local/bin/preview $f
+map I :rename; cmd-home
+map A :rename; cmd-end
+map r :rename; cmd-delete-home
+map C :rename; cmd-end; cmd-delete-home
+map Q quit-and-cd
+
+
+cmd quit-and-cd &{{
+    pwd > $LF_CD_FILE
+    lf -remote "send $id quit"
+}}
+
+# Zoxide
+
+cmd z %{{
+	result="$(zoxide query --exclude $PWD $@ | sed 's/\\/\\\\/g;s/"/\\"/g')"
+	lf -remote "send $id cd \"$result\""
+}}
+
+cmd zi ${{
+	result="$(zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
+	lf -remote "send $id cd \"$result\""
+}}
+
+cmd on-cd &{{
+        zoxide add "$PWD"
+}}
