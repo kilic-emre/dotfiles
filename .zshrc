@@ -46,7 +46,7 @@ export TIMEFMT=$'%J\n\t%U user\t%S system\t%P cpu\t%*E total'
 # Zsh vim plugin timeout
 export KEYTIMEOUT=15
 
-export AUTO_NOTIFY_IGNORE=("nvim" "lf" "batman" "bat" "htop" "git log")
+export AUTO_NOTIFY_IGNORE=("nvim" "lf" "batman" "bat" "htop" "git log" "ta" "ts")
 
 # Timer omz extention
 export TIMER_FORMAT='[%d]'
@@ -98,20 +98,22 @@ plugins=(
   history
   docker
   zoxide
+  aliases
+  # globalias
   # copypath
   # copyfile
   # copybuffer
   # dirhistory
   auto-notify
   # zsh-autocomplete
+  you-should-use
   zsh-autosuggestions
   zsh-syntax-highlighting
-  # web-search
 )
 
 
 source $ZSH/oh-my-zsh.sh
-source $DevOps/bin/scripts
+source $DevOps/bin/scripts.zsh
 
 compdef batman=man
 
