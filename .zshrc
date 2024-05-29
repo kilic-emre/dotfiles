@@ -9,7 +9,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 HISTFILE="$HOME/.omz_history"
 HISTSIZE=10000000
-SAVEHIST=10000000
+SAVEHIST=$HISTSIZE
 
 # Brew setup
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -79,8 +79,6 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':fzf-tab:*' switch-group 'H' 'L'
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --icons --git -TL2 --color=always $realpath'
 
-# zstyle ':completion:*' menu no
-
 
 zstyle ':omz:update' mode auto      # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
@@ -93,22 +91,24 @@ plugins=(
   sudo
   tmux
   timer
-  vi-mode
+  zsh-vi-mode
   fzf-tab
   history
   docker
   zoxide
   aliases
+  extract
+  gitignore
+  auto-notify
+  you-should-use
+  zsh-autosuggestions
+  zsh-syntax-highlighting
   # globalias
   # copypath
   # copyfile
   # copybuffer
   # dirhistory
-  auto-notify
   # zsh-autocomplete
-  you-should-use
-  zsh-autosuggestions
-  zsh-syntax-highlighting
 )
 
 
@@ -133,3 +133,12 @@ compdef batman=man
 
 # The next line enables shell command completion for gcloud.
 # if [ -f '/Users/emre/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/emre/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+# pnpm
+export PNPM_HOME="/Users/emre/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+#
