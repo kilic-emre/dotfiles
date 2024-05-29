@@ -104,6 +104,8 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-export FPATH="/path/to/antidote/functions:${FPATH}"
 source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
 antidote load
+
+autoload -Uz compinit
+compinit
