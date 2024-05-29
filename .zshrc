@@ -43,6 +43,8 @@ export FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 # Time command format
 export TIMEFMT=$'%J\n\t%U user\t%S system\t%P cpu\t%*E total'
 
+export ZVM_VI_INSERT_ESCAPE_BINDKEY="jk"
+
 # Zsh vim plugin timeout
 export KEYTIMEOUT=15
 
@@ -113,20 +115,21 @@ plugins=(
 
 
 source $ZSH/oh-my-zsh.sh
-source $DevOps/bin/scripts.zsh
+
+zvm_after_init(){
+  source $DevOps/bin/scripts.zsh
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+  # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+}
 
 compdef batman=man
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Load Angular CLI autocompletion.
 # source <(ng completion script)
 
-# bindkey -v
 
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # The next line updates PATH for the Google Cloud SDK.
 # if [ -f '/Users/emre/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/emre/Downloads/google-cloud-sdk/path.zsh.inc'; fi
