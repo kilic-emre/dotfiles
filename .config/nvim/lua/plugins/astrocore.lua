@@ -29,7 +29,7 @@ return {
       opt = { -- vim.opt.<key>
         relativenumber = true, -- sets vim.opt.relativenumber
         number = true, -- sets vim.opt.number
-        spell = true, -- sets vim.opt.spell
+        spell = false, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
         wrap = false, -- sets vim.opt.wrap
       },
@@ -41,41 +41,40 @@ return {
     },
     -- Mappings can be configured through AstroCore as well.
     -- NOTE: keycodes follow the casing in the vimdocs. For example, `<Leader>` must be capitalized
-      mappings = {
-        -- first key is the mode
-        n = {
+    mappings = {
+      -- first key is the mode
+      n = {
         L = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         H = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
-          -- second key is the lefthand side of the map
-          -- mappings seen under group name "Buffer"
-          ["<Leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
-          ["<Leader>bD"] = {
-            function()
-              require("astroui.status").heirline.buffer_picker(function(bufnr)
-                require("astrocore.buffer").close(bufnr)
-              end)
-            end,
-            desc = "Pick to close",
-          },
-          -- tables with the `name` key will be registered with which-key if it's installed
-          -- this is useful for naming menus
-          ["<Leader>b"] = { name = "Buffers" },
-          ["<Leader>z"] = { name = "Color Picker" },
+        -- second key is the lefthand side of the map
+        -- mappings seen under group name "Buffer"
+        ["<Leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
+        ["<Leader>bD"] = {
+          function()
+            require("astroui.status").heirline.buffer_picker(
+              function(bufnr) require("astrocore.buffer").close(bufnr) end
+            )
+          end,
+          desc = "Pick to close",
+        },
+        -- tables with the `name` key will be registered with which-key if it's installed
+        -- this is useful for naming menus
+        ["<Leader>b"] = { name = "Buffers" },
+        ["<Leader>z"] = { name = "Color Picker" },
 
-          ["<leader>uT"] = { "<cmd>TransparentToggle<cr>", desc = "Toggle Transparency" },
-          ["<leader>T"] = { "<cmd>Telescope<cr>", desc = "Telescope" },
+        ["<Leader>s"] = { function() require("dropbar.api").pick() end, desc = "Dropbar" },
 
-          ["<leader>zz"] = { "<cmd>Telescope zoxide list<cr>", desc = "Zoxide" },
-          -- quick save
-          -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
-        },
-        t = {
-          -- setting a mapping to false will disable it
-          -- ["<esc>"] = false,
-        },
-        i = {
-          ¬ = {"<esc>", desc = "New Escape"},
-        },
+        ["<Leader>uT"] = { "<cmd>TransparentToggle<cr>", desc = "Toggle Transparency" },
+        ["<Leader>T"] = { "<cmd>Telescope<cr>", desc = "Telescope" },
+
+        ["<Leader>zz"] = { "<cmd>Telescope zoxide list<cr>", desc = "Zoxide" },
+        -- quick save
+        -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
       },
+      t = {
+        -- setting a mapping to false will disable it
+        -- ["<esc>"] = false,
+      },
+    },
   },
 }

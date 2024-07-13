@@ -2,14 +2,17 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
 HISTFILE="$HOME/.omz_history"
 HISTSIZE=10000000
 SAVEHIST=$HISTSIZE
+
+ENABLE_CORRECTION="true"
+
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+ZSH_CACHE_DIR="$HOME/.cache"
+ANTIDOTE_HOME="$HOME/.cache/antidote"
+zsh_plugins="$HOME/.zsh_plugins"
+
 
 # Brew setup
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -24,9 +27,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-
 # MySql client
-
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/mysql-client/lib/pkgconfig"
 # export LDFLAGS="-L/opt/homebrew/opt/mysql-client/lib"
@@ -43,22 +44,31 @@ export FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 # Time command format
 export TIMEFMT=$'%J\n\t%U user\t%S system\t%P cpu\t%*E total'
 
-export ZVM_VI_INSERT_ESCAPE_BINDKEY="jk"
-
 # Zsh vim plugin timeout
 export KEYTIMEOUT=15
 
-export AUTO_NOTIFY_IGNORE=("nvim" "lf" "batman" "bat" "htop" "git log" "ta" "ts")
+export AUTO_NOTIFY_IGNORE=("nvim" "lf" "batman" "bat" "htop" "git log" "ta" "ts" "yy")
 
 # Timer omz extention
 export TIMER_FORMAT='[%d]'
 export TIMER_PRECISION=2
 
 # FZF
-export FZF_DEFAULT_OPTS='--height 70% --layout=reverse --info=inline'
+export FZF_DEFAULT_COMMAND='fd --strip-cwd-prefix -HLtf --ignore-file ~/.ignore'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+export FZF_DEFAULT_OPTS='--layout=reverse --info=inline'
 export FZF_COMPLETION_OPTS='--border'
-export FZF_CTRL_T_OPTS="--height 80% --preview-window=right:70% --preview 'preview {} | head -300' --bind 'ctrl-/:change-preview-window(down|hidden|)'"
-export FZF_CTRL_R_OPTS="--height 60% --preview 'echo {}' --preview-window up:3:hidden:wrap --bind 'ctrl-/:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --color header:italic --header 'Press CTRL-Y to copy command into clipboard'"
+export FZF_CTRL_T_OPTS="--height 80% --preview-window=right:70% --preview 'preview {}' --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+export FZF_CTRL_R_OPTS="--height 80% --border --preview 'echo {}' --preview-window up:3:hidden:wrap --bind 'ctrl-/:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --color header:italic --header 'Press CTRL-Y to copy command into clipboard'"
+
+_fzf_compgen_path() {
+  fd -HL --ignore-file ~/.ignore . "$1"
+}
+
+_fzf_compgen_dir() {
+  fd -td -HL --ignore-file ~/.ignore . "$1"
+}
 
 _fzf_comprun() {
   local command=$1
@@ -73,63 +83,28 @@ _fzf_comprun() {
   esac
 }
 
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
+compdef batman=man
 
-
-zstyle ':completion:*:descriptions' format '[%d]'
-zstyle ':fzf-tab:*' switch-group 'H' 'L'
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --icons --git -TL2 --color=always $realpath'
-
-
-zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
-
-plugins=(
-  git
-  sudo
-  tmux
-  timer
-  zsh-vi-mode
-  fzf-tab
-  history
-  docker
-  zoxide
-  aliases
-  extract
-  gitignore
-  auto-notify
-  you-should-use
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  # globalias
-  # copypath
-  # copyfile
-  # copybuffer
-  # dirhistory
-  # zsh-autocomplete
-)
-
-
-source $ZSH/oh-my-zsh.sh
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 zvm_after_init(){
   source $DevOps/bin/scripts.zsh
+  source "$ANTIDOTE_HOME/https-COLON--SLASH--SLASH-github.com-SLASH-hlissner-SLASH-zsh-autopair/autopair.zsh"
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-  # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 }
 
-compdef batman=man
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':fzf-tab:*' switch-group 'H' 'L'
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' continuous-trigger '.'
+zstyle ':fzf-tab:*' fzf-bindings '<:toggle-out' '>:toggle-in' 'ctrl-a:toggle-all'
 
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --icons --git -TL2 --color=always $realpath'
+
+zstyle ':antidote:bundle' use-friendly-names 'yes'
 
 # Load Angular CLI autocompletion.
 # source <(ng completion script)
-
-
 
 # The next line updates PATH for the Google Cloud SDK.
 # if [ -f '/Users/emre/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/emre/Downloads/google-cloud-sdk/path.zsh.inc'; fi
@@ -144,4 +119,9 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-#
+
+source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
+antidote load
+
+autoload -Uz compinit
+compinit
