@@ -47,19 +47,28 @@ export TIMEFMT=$'%J\n\t%U user\t%S system\t%P cpu\t%*E total'
 # Zsh vim plugin timeout
 export KEYTIMEOUT=15
 
-export AUTO_NOTIFY_IGNORE=("nvim" "lf" "batman" "bat" "htop" "git log" "ta" "ts")
+export AUTO_NOTIFY_IGNORE=("nvim" "lf" "batman" "bat" "htop" "git log" "ta" "ts" "yy")
 
 # Timer omz extention
 export TIMER_FORMAT='[%d]'
 export TIMER_PRECISION=2
 
 # FZF
-export FZF_DEFAULT_OPTS='--height 70% --layout=reverse --info=inline'
-export FZF_COMPLETION_OPTS='--border'
-export FZF_CTRL_T_OPTS="--height 80% --preview-window=right:70% --preview 'preview {} | head -300' --bind 'ctrl-/:change-preview-window(down|hidden|)'"
-export FZF_CTRL_R_OPTS="--height 60% --preview 'echo {}' --preview-window up:3:hidden:wrap --bind 'ctrl-/:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --color header:italic --header 'Press CTRL-Y to copy command into clipboard'"
+export FZF_DEFAULT_COMMAND='fd --strip-cwd-prefix -HLtf --ignore-file ~/.ignore'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-compdef batman=man
+export FZF_DEFAULT_OPTS='--layout=reverse --info=inline'
+export FZF_COMPLETION_OPTS='--border'
+export FZF_CTRL_T_OPTS="--height 80% --preview-window=right:70% --preview 'preview {}' --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+export FZF_CTRL_R_OPTS="--height 80% --border --preview 'echo {}' --preview-window up:3:hidden:wrap --bind 'ctrl-/:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --color header:italic --header 'Press CTRL-Y to copy command into clipboard'"
+
+_fzf_compgen_path() {
+  fd -HL --ignore-file ~/.ignore . "$1"
+}
+
+_fzf_compgen_dir() {
+  fd -td -HL --ignore-file ~/.ignore . "$1"
+}
 
 _fzf_comprun() {
   local command=$1
@@ -74,6 +83,7 @@ _fzf_comprun() {
   esac
 }
 
+compdef batman=man
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -85,7 +95,13 @@ zvm_after_init(){
 
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':fzf-tab:*' switch-group 'H' 'L'
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' continuous-trigger '.'
+zstyle ':fzf-tab:*' fzf-bindings '<:toggle-out' '>:toggle-in' 'ctrl-a:toggle-all'
+
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --icons --git -TL2 --color=always $realpath'
+
+zstyle ':antidote:bundle' use-friendly-names 'yes'
 
 # Load Angular CLI autocompletion.
 # source <(ng completion script)

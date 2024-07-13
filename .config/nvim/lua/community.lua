@@ -12,21 +12,28 @@ return {
   { import = "astrocommunity.color.transparent-nvim" },
   { import = "astrocommunity.color.ccc-nvim" },
 
+  -- { import = "astrocommunity.colorscheme.aurora" },
   { import = "astrocommunity.colorscheme.dracula-nvim" },
 
   { import = "astrocommunity.editing-support.treesj" },
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
+  { import = "astrocommunity.editing-support.vim-visual-multi" },
+
+  { import = "astrocommunity.recipes.telescope-lsp-mappings" },
 
   -- { import = "astrocommunity.lsp.inc-rename-nvim" },
   { import = "astrocommunity.lsp.lsp-lens-nvim" },
   { import = "astrocommunity.lsp.lsp-signature-nvim" },
 
   { import = "astrocommunity.scrolling.mini-animate" },
-  { import = "astrocommunity.scrolling.nvim-scrollbar" },
 
-  { import = "astrocommunity.bars-and-lines.bufferline-nvim" },
-  { import = "astrocommunity.bars-and-lines.lualine-nvim" },
-  { import = "astrocommunity.bars-and-lines.vim-illuminate" },
+  { import = "astrocommunity.search.nvim-hlslens" },
+
+  { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
+  -- { import = "astrocommunity.bars-and-lines.vim-illuminate" },
+  -- { import = "astrocommunity.bars-and-lines.bufferline-nvim" },
+  -- { import = "astrocommunity.bars-and-lines.feline-nvim" },
+  -- { import = "astrocommunity.bars-and-lines.lualine-nvim" },
 
   { import = "astrocommunity.indent.mini-indentscope" },
 
@@ -38,6 +45,8 @@ return {
   { import = "astrocommunity.motion.mini-move" },
 
   { import = "astrocommunity.fuzzy-finder.telescope-zoxide" },
+
+  -- { import = "astrocommunity.syntax.vim-cool" },
 
   { import = "astrocommunity.completion.cmp-cmdline" },
 
