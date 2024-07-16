@@ -31,7 +31,7 @@ return {
         number = true, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
-        wrap = false, -- sets vim.opt.wrap
+        wrap = true, -- sets vim.opt.wrap
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -60,11 +60,17 @@ return {
         -- tables with the `name` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         ["<Leader>b"] = { name = "Buffers" },
+
+        ["<Leader>gv"] = { name = "Diff View" },
+        ["<Leader>gvv"] = { "<cmd>DiffviewOpen<cr>", desc = "Diff View" },
+        ["<Leader>gvh"] = { "<cmd>DiffviewFileHistory<cr>", desc = "Diff View History" },
+
         ["<Leader>z"] = { name = "Color Picker" },
 
         ["<Leader>s"] = { function() require("dropbar.api").pick() end, desc = "Dropbar" },
 
         ["<Leader>uT"] = { "<cmd>TransparentToggle<cr>", desc = "Toggle Transparency" },
+        ["<Leader>uB"] = { "<cmd>GitBlameToggle<cr>", desc = "Toggle Git Blame" },
         ["<Leader>T"] = { "<cmd>Telescope<cr>", desc = "Telescope" },
 
         ["<Leader>zz"] = { "<cmd>Telescope zoxide list<cr>", desc = "Zoxide" },

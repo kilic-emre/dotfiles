@@ -16,7 +16,7 @@ return {
   { import = "astrocommunity.colorscheme.dracula-nvim" },
 
   { import = "astrocommunity.editing-support.treesj" },
-  { import = "astrocommunity.editing-support.todo-comments-nvim" },
+  { import = "astrocommunity.editing-support.conform-nvim" },
   { import = "astrocommunity.editing-support.vim-visual-multi" },
 
   { import = "astrocommunity.recipes.telescope-lsp-mappings" },
@@ -43,6 +43,12 @@ return {
   { import = "astrocommunity.motion.flash-nvim" },
   { import = "astrocommunity.motion.marks-nvim" },
   { import = "astrocommunity.motion.mini-move" },
+
+  { import = "astrocommunity.git.diffview-nvim" },
+  { import = "astrocommunity.git.git-blame-nvim" },
+
+  { import = "astrocommunity.utility.noice-nvim" },
+  { import = "astrocommunity.diagnostics.trouble-nvim" },
 
   { import = "astrocommunity.fuzzy-finder.telescope-zoxide" },
 

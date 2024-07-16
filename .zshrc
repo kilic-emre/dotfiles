@@ -57,7 +57,7 @@ export TIMER_PRECISION=2
 export FZF_DEFAULT_COMMAND='fd --strip-cwd-prefix -HLtf --ignore-file ~/.ignore'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-export FZF_DEFAULT_OPTS='--layout=reverse --info=inline'
+export FZF_DEFAULT_OPTS='--layout=reverse --info=inline --no-multi-line'
 export FZF_COMPLETION_OPTS='--border'
 export FZF_CTRL_T_OPTS="--height 80% --preview-window=right:70% --preview 'preview {}' --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 export FZF_CTRL_R_OPTS="--height 80% --border --preview 'echo {}' --preview-window up:3:hidden:wrap --bind 'ctrl-/:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --color header:italic --header 'Press CTRL-Y to copy command into clipboard'"
