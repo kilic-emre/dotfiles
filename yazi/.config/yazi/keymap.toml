@@ -1,0 +1,12 @@
+[manager]
+
+append_keymap = [
+  { on = [
+    "c",
+    "z",
+  ], run = """ shell 'printf "Your Name:"; read name; sed -E "s| ?$PWD|\\" \\".|g;s|^..||;s|$|\\"|g" <<<$@ | xargs zip -r "$name.zip"' --block --confirm """, desc = "Create zip archive" },
+  { on = [
+    "c",
+    "t",
+  ], run = """ shell 'printf "Your Name:"; read name; sed -E "s| ?$PWD|\\" \\".|g;s|^..||;s|$|\\"|g" <<<$@ | xargs tar czf "$name.tar.gz"' --block --confirm """, desc = "Create tar archive" },
+]
