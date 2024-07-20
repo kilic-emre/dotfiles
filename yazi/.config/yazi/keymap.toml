@@ -9,4 +9,25 @@ append_keymap = [
     "c",
     "t",
   ], run = """ shell 'printf "Your Name:"; read name; sed -E "s| ?$PWD|\\" \\".|g;s|^..||;s|$|\\"|g" <<<$@ | xargs tar czf "$name.tar.gz"' --block --confirm """, desc = "Create tar archive" },
+  { on = [
+    "e",
+  ], run = """ shell '$EDITOR "$@"' --block --confirm """, desc = "Open with $EDITOR" },
+]
+
+[input]
+
+append_keymap = [
+  { on = [
+    "q",
+  ], run = "close", desc = "Cancel input" },
+  { on = [
+    "<C-j>",
+  ], run = "escape", desc = "Go back the normal mode, or cancel input" },
+  { on = [
+    "X",
+  ], run = [
+    "move -1",
+    "delete --cut",
+    "move 1 --in-operating",
+  ], desc = "Cut the before current character" },
 ]

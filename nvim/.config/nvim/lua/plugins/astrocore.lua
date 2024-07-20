@@ -29,7 +29,7 @@ return {
       opt = { -- vim.opt.<key>
         relativenumber = true, -- sets vim.opt.relativenumber
         number = true, -- sets vim.opt.number
-        spell = false, -- sets vim.opt.spell
+        spell = true, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
         wrap = true, -- sets vim.opt.wrap
       },
@@ -46,6 +46,9 @@ return {
       n = {
         L = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         H = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
+
+        ["<C->>"] = { "5zl", desc = "Left scroll" },
+        ["<C-<>"] = { "5zh", desc = "Right scroll" },
         -- second key is the lefthand side of the map
         -- mappings seen under group name "Buffer"
         ["<Leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
@@ -64,6 +67,8 @@ return {
         ["<Leader>gv"] = { name = "Diff View" },
         ["<Leader>gvv"] = { "<cmd>DiffviewOpen<cr>", desc = "Diff View" },
         ["<Leader>gvh"] = { "<cmd>DiffviewFileHistory<cr>", desc = "Diff View History" },
+
+        ["<Leader>W"] = { "<C-w>", desc = "Windows" },
 
         ["<Leader>z"] = { name = "Color Picker" },
 

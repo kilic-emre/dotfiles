@@ -37,8 +37,8 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/mysql-client/lib/pkgconfig"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
 # My paths
-export DevOps="$HOME/Desktop/DevOps"
-export PATH="$DevOps/bin:$PATH"
+export WorkDir="$HOME/WorkDir"
+export PATH="$WorkDir/bin:$PATH"
 export FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 # Time command format
@@ -88,7 +88,7 @@ compdef batman=man
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 zvm_after_init(){
-  source $DevOps/bin/scripts.zsh
+  source $HOME/.scripts.zsh
   source "$ANTIDOTE_HOME/https-COLON--SLASH--SLASH-github.com-SLASH-hlissner-SLASH-zsh-autopair/autopair.zsh"
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 }
@@ -105,12 +105,6 @@ zstyle ':antidote:bundle' use-friendly-names 'yes'
 
 # Load Angular CLI autocompletion.
 # source <(ng completion script)
-
-# The next line updates PATH for the Google Cloud SDK.
-# if [ -f '/Users/emre/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/emre/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-# if [ -f '/Users/emre/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/emre/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 # pnpm
 export PNPM_HOME="/Users/emre/Library/pnpm"
