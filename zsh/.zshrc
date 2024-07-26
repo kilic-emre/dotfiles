@@ -1,31 +1,27 @@
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# t1=$(/opt/homebrew/bin/gdate +%s%N)
+if [[ "$TERM" == "xterm-256color" || "$TERM" == "screen-256color" ]]; then
+    /opt/homebrew/bin/fastfetch -c ~/.config/fastfetch/start.jsonc
 fi
-
-HISTFILE="$HOME/.omz_history"
-HISTSIZE=10000000
-SAVEHIST=$HISTSIZE
-
-ENABLE_CORRECTION="true"
-
-ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-ZSH_CACHE_DIR="$HOME/.cache"
-ANTIDOTE_HOME="$HOME/.cache/antidote"
-zsh_plugins="$HOME/.zsh_plugins"
-
 
 # Brew setup
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# Node version manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export HISTFILE="$HOME/.omz_history"
+export HISTSIZE=10000000
+export SAVEHIST=$HISTSIZE
+
+export ENABLE_CORRECTION="true"
+
+export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+export ZSH_CACHE_DIR="$HOME/.cache"
+export ANTIDOTE_HOME="$HOME/.cache/antidote"
+export zsh_plugins="$HOME/.zsh_plugins"
 
 # MySql client
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
@@ -40,6 +36,7 @@ export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export WorkDir="$HOME/WorkDir"
 export PATH="$WorkDir/bin:$PATH"
 export FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+export LESS='--mouse -R'
 
 # Time command format
 export TIMEFMT=$'%J\n\t%U user\t%S system\t%P cpu\t%*E total'
@@ -61,6 +58,19 @@ export FZF_DEFAULT_OPTS='--layout=reverse --info=inline --no-multi-line'
 export FZF_COMPLETION_OPTS='--border'
 export FZF_CTRL_T_OPTS="--height 80% --preview-window=right:70% --preview 'preview {}' --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 export FZF_CTRL_R_OPTS="--height 80% --border --preview 'echo {}' --preview-window up:3:hidden:wrap --bind 'ctrl-/:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --color header:italic --header 'Press CTRL-Y to copy command into clipboard'"
+
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':fzf-tab:*' switch-group 'H' 'L'
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' continuous-trigger '.'
+zstyle ':fzf-tab:*' fzf-bindings '<:toggle-out' '>:toggle-in' 'ctrl-a:toggle-all'
+
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --icons --git -TL2 --color=always $realpath'
+
+zstyle ':antidote:bundle' use-friendly-names 'yes'
+
+autoload -Uz compinit
+compinit
 
 _fzf_compgen_path() {
   fd -HL --ignore-file ~/.ignore . "$1"
@@ -85,23 +95,11 @@ _fzf_comprun() {
 
 compdef batman=man
 
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 zvm_after_init(){
   source $HOME/.scripts.zsh
   source "$ANTIDOTE_HOME/https-COLON--SLASH--SLASH-github.com-SLASH-hlissner-SLASH-zsh-autopair/autopair.zsh"
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 }
-
-zstyle ':completion:*:descriptions' format '[%d]'
-zstyle ':fzf-tab:*' switch-group 'H' 'L'
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-zstyle ':fzf-tab:*' continuous-trigger '.'
-zstyle ':fzf-tab:*' fzf-bindings '<:toggle-out' '>:toggle-in' 'ctrl-a:toggle-all'
-
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --icons --git -TL2 --color=always $realpath'
-
-zstyle ':antidote:bundle' use-friendly-names 'yes'
 
 # Load Angular CLI autocompletion.
 # source <(ng completion script)
@@ -112,10 +110,31 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
+
+# Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+pyenv() {
+  if [[ ! $PYENV_LAZY_LOAD ]]; then
+    export PYENV_LAZY_LOAD=true
+    eval "$(pyenv init -)"
+  fi
+  command pyenv "$@"
+}
+
+# Node version manager
+export NVM_DIR="$HOME/.nvm"
+nvm() {
+  if [[ ! $NVM_LAZY_LOAD ]]; then
+    export NVM_LAZY_LOAD=true
+    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+    [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+  fi
+  nvm "$@"
+}
 
 source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
 antidote load
 
-autoload -Uz compinit
-compinit
+# t2=$(/opt/homebrew/bin/gdate +%s%N)
+# echo "Load time: $(( (t2 - t1) / 1000000 )) milliseconds"
