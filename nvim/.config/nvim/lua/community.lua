@@ -17,6 +17,7 @@ return {
 
   { import = "astrocommunity.editing-support.treesj" },
   { import = "astrocommunity.editing-support.conform-nvim" },
+  { import = "astrocommunity.editing-support.bigfile-nvim" },
   { import = "astrocommunity.editing-support.vim-visual-multi" },
 
   { import = "astrocommunity.recipes.telescope-lsp-mappings" },
