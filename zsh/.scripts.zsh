@@ -164,8 +164,3 @@ function nv() {
   fi
   NVIM_APPNAME=$config nvim $@
 }
-
-if [ "$1" = quake ] || [ "$1" = quake_afad ];
-then
-	[[ -n "$2" ]] && $1 $2 $3 || $1
-fi
