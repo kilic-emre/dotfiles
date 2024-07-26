@@ -10,7 +10,7 @@ ohmyzsh/ohmyzsh path:plugins/aliases
 ohmyzsh/ohmyzsh path:plugins/extract
 ohmyzsh/ohmyzsh path:plugins/gitignore
 
-romkatv/powerlevel10k
+# romkatv/powerlevel10k
 
 Aloxaf/fzf-tab
 MichaelAquilina/zsh-you-should-use
