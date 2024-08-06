@@ -1,0 +1,11 @@
+[plugin]
+deps = [
+  { use = "yazi-rs/plugins#full-border", commit = "39f2753" },
+  { use = "yazi-rs/plugins#chmod", commit = "39f2753" },
+  { use = "yazi-rs/plugins#hide-preview", commit = "39f2753" },
+  { use = "yazi-rs/plugins#max-preview", commit = "39f2753" },
+  { use = "yazi-rs/plugins#smart-filter", commit = "39f2753" },
+]
+
+[flavor]
+deps = [{ use = "yazi-rs/flavors#catppuccin-mocha", commit = "2d7dd2a" }]
