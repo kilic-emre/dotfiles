@@ -99,7 +99,7 @@ compdef batman=man
 zvm_after_init(){
   source $HOME/.scripts.zsh
   source "$ANTIDOTE_HOME/https-COLON--SLASH--SLASH-github.com-SLASH-hlissner-SLASH-zsh-autopair/autopair.zsh"
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+  source <(fzf --zsh)
 }
 
 # Load Angular CLI autocompletion.
