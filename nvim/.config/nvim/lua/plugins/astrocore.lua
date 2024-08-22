@@ -76,9 +76,21 @@ return {
 
         ["<Leader>uT"] = { "<cmd>TransparentToggle<cr>", desc = "Toggle Transparency" },
         ["<Leader>uB"] = { "<cmd>GitBlameToggle<cr>", desc = "Toggle Git Blame" },
-        ["<Leader>T"] = { "<cmd>Telescope<cr>", desc = "Telescope" },
+
+        ["gT"] = { "<cmd>Telescope<cr>", desc = "Telescope" },
+
+        ["<Leader>lc"] = { name = "Commands" },
+        ["<Leader>lca"] = {
+          "<cmd>lua vim.api.nvim_buf_set_var(0, 'aerial_backends', {'treesitter'});require('aerial').refetch_symbols()<cr>",
+          desc = "Aerial treesitter",
+        },
 
         ["<Leader>zz"] = { "<cmd>Telescope zoxide list<cr>", desc = "Zoxide" },
+
+        ["<Leader>xx"] = { "<cmd>Trouble diagnostics toggle win.position=right<cr>", desc = "Diagnostics (Trouble)" },
+
+        ["¬"] = { "<cmd>tabn<cr>", desc = "Tab Next" },
+        ["˙"] = { "<cmd>tabp<cr>", desc = "Tab Previous" },
         -- quick save
         -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
       },

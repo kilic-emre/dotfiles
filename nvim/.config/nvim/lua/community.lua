@@ -16,9 +16,12 @@ return {
   { import = "astrocommunity.colorscheme.dracula-nvim" },
 
   { import = "astrocommunity.editing-support.treesj" },
+  { import = "astrocommunity.editing-support.undotree" },
   { import = "astrocommunity.editing-support.conform-nvim" },
   { import = "astrocommunity.editing-support.bigfile-nvim" },
   { import = "astrocommunity.editing-support.vim-visual-multi" },
+  { import = "astrocommunity.editing-support.refactoring-nvim" },
+  { import = "astrocommunity.editing-support.rainbow-delimiters-nvim" },
 
   { import = "astrocommunity.recipes.telescope-lsp-mappings" },
 
@@ -47,6 +50,9 @@ return {
 
   { import = "astrocommunity.git.diffview-nvim" },
   { import = "astrocommunity.git.git-blame-nvim" },
+  { import = "astrocommunity.git.gitgraph-nvim" },
+
+  { import = "astrocommunity.icon.mini-icons" },
 
   { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
@@ -59,6 +65,7 @@ return {
 
   { import = "astrocommunity.split-and-window.minimap-vim" },
 
+  { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.python-ruff" },
   -- { import = "astrocommunity.pack.python" },
 }
