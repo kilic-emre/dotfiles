@@ -13,6 +13,8 @@ alias n="nvim"
 alias c='code'
 alias py="python3"
 alias pn="pnpm"
+alias px="pnpx"
+alias lg="lazygit"
 
 alias psleep="sudo pmset -b disablesleep 1"
 alias asleep="sudo pmset -b disablesleep 0"

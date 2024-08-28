@@ -10,7 +10,7 @@ return {
   { import = "astrocommunity.pack.lua" },
   -- import/override with your plugins folder
   { import = "astrocommunity.color.transparent-nvim" },
-  { import = "astrocommunity.color.ccc-nvim" },
+  -- { import = "astrocommunity.color.ccc-nvim" },
 
   -- { import = "astrocommunity.colorscheme.aurora" },
   { import = "astrocommunity.colorscheme.dracula-nvim" },
@@ -62,10 +62,23 @@ return {
   -- { import = "astrocommunity.syntax.vim-cool" },
 
   { import = "astrocommunity.completion.cmp-cmdline" },
+  { import = "astrocommunity.completion.cmp-calc" },
+  { import = "astrocommunity.completion.cmp-spell" },
+  { import = "astrocommunity.completion.cmp-emoji" },
+  { import = "astrocommunity.completion.cmp-under-comparator" },
+  { import = "astrocommunity.completion.codeium-vim" },
+  { import = "astrocommunity.completion.codeium-nvim" },
+  -- { import = "astrocommunity.completion.cmp-nerdfont" },
+
+  { import = "astrocommunity.code-runner.overseer-nvim" },
+
+  { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
 
   { import = "astrocommunity.split-and-window.minimap-vim" },
+  { import = "astrocommunity.split-and-window.colorful-winsep-nvim" },
 
   { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.python-ruff" },
+  { import = "astrocommunity.pack.typescript" },
   -- { import = "astrocommunity.pack.python" },
 }
