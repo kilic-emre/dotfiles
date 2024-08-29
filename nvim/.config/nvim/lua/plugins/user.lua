@@ -18,6 +18,11 @@ return {
   },
 
   {
+    "rcarriga/nvim-notify",
+    config = function() require("notify").setup { background_colour = "#000000" } end,
+  },
+
+  {
     "lukas-reineke/indent-blankline.nvim",
     dependencies = { "HiPhish/rainbow-delimiters.nvim" },
     config = function()
@@ -85,11 +90,11 @@ return {
       require "astronvim.plugins.configs.luasnip"(plugin, opts) -- include the default astronvim config that calls the setup call
       -- add more custom luasnip configuration such as filetype extend or custom snippets
       local luasnip = require "luasnip"
-      luasnip.filetype_extend("javascript", { "javascriptreact" })
+      -- luasnip.filetype_extend("javascript", { "javascriptreact" })
       luasnip.filetype_extend("html", { "css" })
       luasnip.filetype_extend("typescript", { "javascript" })
       luasnip.filetype_extend("svelte", { "javascript" })
-      luasnip.filetype_extend("astro", { "html" })
+      -- luasnip.filetype_extend("astro", { "html" })
       luasnip.filetype_extend("astro", { "javascript" })
     end,
   },

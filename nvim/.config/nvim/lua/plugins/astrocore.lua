@@ -62,6 +62,8 @@ return {
         },
         -- tables with the `name` key will be registered with which-key if it's installed
         -- this is useful for naming menus
+        ["<Leader>X"] = { "<cmd>tabclose<cr>", desc = "Close Tab" },
+
         ["<Leader>b"] = { name = "Buffers" },
 
         ["<Leader>gv"] = { name = "Diff View" },
